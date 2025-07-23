@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Americká hypotéka – POC</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(120deg, #eaf6fb 0%, #f4f7fa 100%);
+      font-family: 'Montserrat', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 420px;
+      margin: 60px auto;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 8px 32px rgba(0,73,144,0.18);
+      padding: 40px 30px 36px 30px;
+      text-align: center;
+    }
+    .header-icon {
+      width: 60px;
+      height: 60px;
+      background: #004990;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 22px auto;
+      color: #fff;
+      font-size: 2rem;
+      box-shadow: 0 2px 8px rgba(0,73,144,0.10);
+    }
+    h1 {
+      color: #004990;
+      font-size: 2rem;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+    p {
+      color: #333;
+      font-size: 1.08rem;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+    ul {
+      text-align: left;
+      margin: 0 0 22px 0;
+      padding-left: 18px;
+      color: #222;
+      font-size: 1.02rem;
+    }
+    ul li {
+      margin-bottom: 10px;
+      position: relative;
+      padding-left: 18px;
+    }
+    ul li:before {
+      content: "✔";
+      color: #0072ce;
+      font-size: 1.1em;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    .cta-btn {
+      background: linear-gradient(90deg, #0072ce 0%, #004990 100%);
+      color: #fff;
+      padding: 15px 36px;
+      border: none;
+      border-radius: 28px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0,114,206,0.13);
+      transition: background 0.2s, transform 0.15s;
+      margin-top: 18px;
+      letter-spacing: 0.5px;
+    }
+    .cta-btn:hover {
+      background: linear-gradient(90deg, #004990 0%, #0072ce 100%);
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 8px 24px rgba(0,114,206,0.17);
+    }
+    @media (max-width: 600px) {
+      .container {
+        padding: 24px 8px 18px 8px;
+        max-width: 98vw;
+      }
+      h1 { font-size: 1.35rem; }
+      .header-icon { width: 44px; height: 44px; font-size: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header-icon">
+      <span>🏠</span>
+    </div>
+    <h1>Americká hypotéka</h1>
+    <p>
+      Bezúčelový úver zabezpečený nehnuteľnosťou. Využite výhodné podmienky na financovanie vašich plánov – rekonštrukcia, kúpa auta, cestovanie a viac.
+    </p>
+    <ul>
+      <li>Až do 80 % hodnoty nehnuteľnosti</li>
+      <li>Výhodná úroková sadzba</li>
+      <li>Splácanie až do 30 rokov</li>
+      <li>Rýchly a jednoduchý proces schválenia</li>
+    </ul>
+    <button class="cta-btn">Požiadať o hypotéku</button>
+  </div>
+</body>
+</html>
