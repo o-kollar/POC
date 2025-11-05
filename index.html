@@ -1,123 +1,277 @@
 <!DOCTYPE html>
 <html lang="sk">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Americká hypotéka – POC</title>
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎄 Zdobenie vianočného stromčeku - Detská Vianočná Akcia</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     body {
-      background: linear-gradient(120deg, #eaf6fb 0%, #f4f7fa 100%);
-      font-family: 'Montserrat', Arial, sans-serif;
-      margin: 0;
-      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
     }
-    .container {
-      max-width: 420px;
-      margin: 60px auto;
-      background: #fff;
-      border-radius: 18px;
-      box-shadow: 0 8px 32px rgba(0,73,144,0.18);
-      padding: 40px 30px 36px 30px;
-      text-align: center;
+    .font-christmas {
+      font-family: 'Berkshire Swash', cursive;
     }
-    .header-icon {
-      width: 60px;
-      height: 60px;
-      background: #004990;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 22px auto;
-      color: #fff;
-      font-size: 2rem;
-      box-shadow: 0 2px 8px rgba(0,73,144,0.10);
+    .text-shadow {
+      text-shadow: 2px 2px 4px rgba(34, 197, 94, 0.4), 3px 3px 6px rgba(220, 38, 38, 0.5);
     }
-    h1 {
-      color: #004990;
-      font-size: 2rem;
-      margin-bottom: 12px;
-      font-weight: 700;
+
+    /* Snow */
+    .snow-container {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 999;
     }
-    p {
-      color: #333;
-      font-size: 1.08rem;
-      margin-bottom: 24px;
-      line-height: 1.6;
+    .snowflake {
+      position: absolute; top: -10px; color: white; opacity: 0.9;
+      animation: fall linear infinite;
     }
-    ul {
-      text-align: left;
-      margin: 0 0 22px 0;
-      padding-left: 18px;
-      color: #222;
-      font-size: 1.02rem;
+    @keyframes fall {
+      100% { transform: translateY(100vh) rotate(360deg); }
     }
-    ul li {
-      margin-bottom: 10px;
+    .snowflake::before {
+      content: '❄';
+      font-size: 1.2rem;
+    }
+
+    /* Game Area */
+    .game-area {
       position: relative;
-      padding-left: 18px;
+      background: linear-gradient(to bottom right, #f0fdf4, #ffffff);
+      border-radius: 25px;
+      box-shadow: inset 0 0 25px rgba(255,255,255,0.6), 0 10px 20px rgba(0,0,0,0.08);
+      overflow: hidden;
+      /* --- NEW: Candy cane border --- */
+      border: 12px solid transparent;
+      border-image: repeating-linear-gradient(
+        -45deg,
+        #dc2626,
+        #dc2626 15px,
+        #fff 15px,
+        #fff 30px
+      ) 1;
     }
-    ul li:before {
-      content: "✔";
-      color: #0072ce;
-      font-size: 1.1em;
+    .gift {
       position: absolute;
-      left: 0;
-      top: 0;
-    }
-    .cta-btn {
-      background: linear-gradient(90deg, #0072ce 0%, #004990 100%);
-      color: #fff;
-      padding: 15px 36px;
-      border: none;
-      border-radius: 28px;
-      font-size: 1.15rem;
-      font-weight: 700;
+      font-size: 2.2rem;
       cursor: pointer;
-      box-shadow: 0 4px 16px rgba(0,114,206,0.13);
-      transition: background 0.2s, transform 0.15s;
-      margin-top: 18px;
-      letter-spacing: 0.5px;
-      text-decoration: none;
-      display: inline-block;
+      animation: pop 0.3s ease;
     }
-    .cta-btn:hover {
-      background: linear-gradient(90deg, #004990 0%, #0072ce 100%);
-      transform: translateY(-2px) scale(1.03);
-      box-shadow: 0 8px 24px rgba(0,114,206,0.17);
-      text-decoration: none;
+    @keyframes pop {
+      from { transform: scale(0); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
-    @media (max-width: 600px) {
-      .container {
-        padding: 24px 8px 18px 8px;
-        max-width: 98vw;
-      }
-      h1 { font-size: 1.35rem; }
-      .header-icon { width: 44px; height: 44px; font-size: 1.3rem; }
+    .gift:hover {
+      transform: scale(1.3) rotate(-10deg);
+    }
+    .game-ui {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.9);
+      padding: 10px 30px;
+      border-radius: 50px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      display: flex;
+      gap: 40px;
+      font-weight: 700;
+      color: #14532d;
+    }
+
+    /* Buttons */
+    .btn-primary {
+      background-color: #dc2626;
+      color: white;
+      font-weight: bold;
+      border-radius: 9999px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+    }
+    .btn-primary:hover {
+      background-color: #b91c1c;
+      transform: scale(1.05);
     }
   </style>
 </head>
-<body>
-  <div class="container">
-    <div class="header-icon">
-      <span>🏠</span>
-    </div>
-    <h1>Americká hypotéka</h1>
-    <p>
-      Bezúčelový úver zabezpečený nehnuteľnosťou. Využite výhodné podmienky na financovanie vašich plánov – rekonštrukcia, kúpa auta, cestovanie a viac.
-    </p>
-    <ul>
-      <li>Až do 80 % hodnoty nehnuteľnosti</li>
-      <li>Výhodná úroková sadzba</li>
-      <li>Splácanie až do 30 rokov</li>
-      <li>Rýchly a jednoduchý proces schválenia</li>
-    </ul>
-    <a class="cta-btn"
-      href="https://chatgpt.com/?hints=search&q=Odpovedaj%20iba%20na%20z%C3%A1klade%20tohto%20dokumentu%3A%20https%3A%2F%2Fo-kollar.github.io%2FPOC%2Fllms.txt.%20Ke%C4%8F%20bude%C5%A1%20pripraven%C3%BD%20odpoveda%C5%A5%20na%20ot%C3%A1zky%2C%20informuj%20ma."
-      target="_blank">
-      Otvoriť v chatGPT
-    </a>
+<body class="bg-amber-50">
+  <!-- More snowflakes added for a richer effect -->
+  <div class="snow-container">
+    <div class="snowflake" style="left:10%;animation-duration:8s;"></div>
+    <div class="snowflake" style="left:15%;animation-duration:14s;animation-delay:-5s;"></div>
+    <div class="snowflake" style="left:25%;animation-duration:10s;animation-delay:-3s;"></div>
+    <div class="snowflake" style="left:30%;animation-duration:7s;animation-delay:-1s;"></div>
+    <div class="snowflake" style="left:40%;animation-duration:12s;animation-delay:-2s;"></div>
+    <div class="snowflake" style="left:55%;animation-duration:13s;animation-delay:-4s;"></div>
+    <div class="snowflake" style="left:60%;animation-duration:9s;"></div>
+    <div class="snowflake" style="left:75%;animation-duration:15s;animation-delay:-6s;"></div>
+    <div class="snowflake" style="left:80%;animation-duration:11s;"></div>
+    <div class="snowflake" style="left:90%;animation-duration:9s;animation-delay:-8s;"></div>
   </div>
+
+  <div id="app" class="relative z-10">
+    <!-- Updated header with decorations -->
+    <header class="relative text-center py-28 bg-amber-50 overflow-hidden">
+      <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/snow.png')] opacity-20"></div>
+      <!-- NEW: Decorative elements -->
+      <span class="absolute top-10 left-10 text-5xl opacity-40 transform -rotate-12 animate-pulse">🌟</span>
+      <span class="absolute top-16 right-10 text-5xl opacity-40 transform rotate-12 animate-pulse">🔔</span>
+      <h1 class="text-7xl md:text-8xl font-christmas text-red-600 text-shadow"> Zdobenie Stromčeku</h1>
+      <p class="text-xl md:text-2xl mt-4 text-gray-700"></p>
+    </header>
+
+    <main class="container mx-auto px-6 -mt-10">
+      <!-- Game -->
+      <section class="my-16 text-center">
+        <div v-if="gameState === 'ready'">
+          <!-- NEW: Decorative icons in title -->
+          <h2 class="text-4xl font-christmas text-green-700 mb-4">🎁 Zahraj sa vianočnú hru</h2>
+          <p class="text-gray-700 mb-2">Klikni na všetky darčeky tak rýchlo, ako dokážeš!</p>
+          <p class="text-gray-500">Najlepší čas: <span class="font-bold">{{ formattedHighScore }}s</span></p>
+          <button @click="startGame" class="btn-primary mt-5 px-10 py-4 text-xl shadow-lg">
+            Štart 🎅
+          </button>
+        </div>
+
+        <div v-if="gameState === 'playing'" class="game-area h-[400px] mt-10">
+          <div class="game-ui">
+            <div>⏱{{ formattedTime }}s</div>
+            <div>🎁 {{ gifts.length }}</div>
+          </div>
+          <div v-for="(gift, index) in gifts" 
+            :key="gift.id" 
+            class="gift" 
+            :style="{ top: gift.top + '%', left: gift.left + '%' }"
+            @click="collectGift(index)">🎁</div>
+        </div>
+
+        <div v-if="gameState === 'finished'" class="mt-10">
+          <h2 class="text-4xl font-christmas text-green-700">Gratulujeme!</h2>
+          <p v-if="isNewHighScore" class="text-2xl text-red-600 font-bold mt-2">🎉 Nový rekord!</p>
+          <p class="mt-3 text-xl">Tvoj čas: <span class="text-4xl font-bold">{{ finalTime }}s</span></p>
+          <p class="text-gray-600 mt-2">Najlepší čas: <span class="font-bold">{{ formattedHighScore }}s</span></p>
+          <button @click="startGame" class="btn-primary mt-5 px-8 py-3 text-lg shadow-lg">Hrať znova </button>
+        </div>
+      </section>
+      
+      <!-- NEW: Christmas Garland Divider -->
+
+      <!-- Events -->
+      <section v-for="event in eventsWithCalendarLinks" :key="event.name" class="bg-white/70 backdrop-blur-sm rounded-3xl shadow-xl p-8 md:p-12 my-12 ring-1 ring-black/5 transition-all hover:shadow-2xl hover:scale-[1.01]">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 items-center">
+          <div class="lg:col-span-2">
+            <!-- NEW: Decorative icons in title -->
+            <h2 class="text-4xl font-christmas text-green-700 mb-4">{{ event.name }}</h2>
+            <div class="space-y-2 text-lg text-gray-700">
+              <p>📅 {{ event.date }}</p>
+              <p>📍 {{ event.location }}</p>
+            </div>
+          </div>
+          <div class="text-center">
+            <a :href="event.calendarLink" :download="event.icsFilename" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full text-lg transition transform hover:scale-105 shadow-lg shadow-green-400/40 inline-block">Pridať do kalendára
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="text-center text-gray-500 py-10">
+    </footer>
+  </div>
+
+  <!-- Vue script -->
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        events: [
+          { name: 'Zdobenie stromčeku v Auparku', location: 'Aupark, Einsteinova 3541/18, 851 01 Petržalka', date: 'Sobota, 20. December 2025 | 15:00 - 18:00', startTime: '2025-12-20T15:00:00', endTime: '2025-12-20T18:00:00' },
+          { name: 'Zdobenie stromčeku v OC Central', location: 'OC Central, Metodova 6, 821 08 Bratislava', date: 'Sobota, 06. December 2025 | 15:00 - 18:00', startTime: '2025-12-06T15:00:00', endTime: '2025-12-06T18:00:00' }
+        ],
+        gameState: 'ready',
+        gifts: [],
+        totalGifts: 10,
+        timer: null,
+        timeElapsed: 0,
+        finalTime: '',
+        highScore: null,
+        isNewHighScore: false
+      },
+      computed: {
+        eventsWithCalendarLinks() {
+          return this.events.map(event => {
+            const title = `Zdobenie stromčeku - ${event.name}`;
+            const description = 'Najkrajšie a najzábavnejšie zdobenie vianočného stromčeku pre všetky deti!';
+            const location = event.location;
+            const formatToIcsDate = d => new Date(d).toISOString().replace(/-|:|\.\d{3}/g, '');
+            const startDate = formatToIcsDate(event.startTime);
+            const endDate = formatToIcsDate(event.endTime);
+            const now = formatToIcsDate(new Date());
+            const ics = `BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//ZdobenieStromceku//SK\r\nBEGIN:VEVENT\r\nUID:${startDate}-${endDate}@zdobeniestromceku.sk\r\nDTSTAMP:${now}\r\nDTSTART:${startDate}\r\nDTEND:${endDate}\r\nSUMMARY:${title}\r\nDESCRIPTION:${description}\r\nLOCATION:${location}\r\nEND:VEVENT\r\nEND:VCALENDAR`;
+            const calendarLink = `data:text/calendar;charset=utf8,${encodeURIComponent(ics)}`;
+            const icsFilename = `zdobenie-stromceku-${event.name.toLowerCase().replace(/\s+/g, '-')}.ics`;
+            return { ...event, calendarLink, icsFilename };
+          });
+        },
+        formattedTime() {
+          const s = Math.floor(this.timeElapsed / 1000);
+          return String(s).padStart(2, '0');
+        },
+        formattedHighScore() {
+          if (this.highScore === null) return '--.--';
+          return this.formatTime(this.highScore);
+        }
+      },
+      methods: {
+        formatTime(ms) {
+          const totalSeconds = Math.floor(ms / 1000);
+          const milliseconds = String(ms % 1000).padStart(3, '0').slice(0, 2);
+          return `${String(totalSeconds).padStart(2, '0')}.${milliseconds}`;
+        },
+        startGame() {
+          this.isNewHighScore = false;
+          this.gameState = 'playing';
+          this.timeElapsed = 0;
+          this.generateGifts();
+          this.startTimer();
+        },
+        generateGifts() {
+          this.gifts = Array.from({ length: this.totalGifts }, (_, i) => ({
+            id: i,
+            top: Math.random() * 80 + 10,
+            left: Math.random() * 90 + 5
+          }));
+        },
+        collectGift(i) {
+          this.gifts.splice(i, 1);
+          if (!this.gifts.length) this.endGame();
+        },
+        startTimer() {
+          clearInterval(this.timer);
+          const start = Date.now();
+          this.timer = setInterval(() => (this.timeElapsed = Date.now() - start), 10);
+        },
+        endGame() {
+          clearInterval(this.timer);
+          this.finalTime = this.formatTime(this.timeElapsed);
+          if (this.highScore === null || this.timeElapsed < this.highScore) {
+            this.highScore = this.timeElapsed;
+            localStorage.setItem('giftGameHighScore', this.highScore);
+            this.isNewHighScore = true;
+          }
+          this.gameState = 'finished';
+        }
+      },
+      mounted() {
+        const saved = localStorage.getItem('giftGameHighScore');
+        if (saved) this.highScore = parseInt(saved);
+      }
+    });
+  </script>
 </body>
 </html>
